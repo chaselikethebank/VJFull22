@@ -14,9 +14,9 @@ function App() {
       {/* <ButtonAppBar/> */}
       <ButtonAppBarTwo/>
       <div className="body" style={null} >
-        
+        <Releases />
       <Home />
-      <Releases />
+      
       <About />
       <Login />
       

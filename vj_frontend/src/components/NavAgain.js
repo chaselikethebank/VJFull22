@@ -19,8 +19,8 @@ export default function ButtonAppBarTwo() {
       <AppBar position="fixed" elevation={0} style={{ background: 'white', color: 'black' }}>
         <Toolbar >
          
-          <Typography variant="h4" component="div" sx={{ fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold', fontOpticalSizing: 'auto'  }}>
-            # very jazzed </Typography> <Typography variant="body1: 'p'"> ® 
+          <Typography variant="h2" component="div" sx={{ fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold', fontOpticalSizing: 'auto'  }}>
+            #veryjazzed </Typography> <Typography variant="body1: 'p'"> ® 
           </Typography>
           <Typography variant="h7" component="div" sx={{  justifyContent: 'flex-end', fontOpticalSizing: 'auto', flexGrow: 100,
             // display: 'flex', flexDirection: 'row-reverse', 
