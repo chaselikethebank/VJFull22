@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 
 function Release({ key, link, releases }) {
-  console.log(link);
+  // console.log(link);
 
   // console.log(link.cat.name);
   // console.log(link.artist.name);
