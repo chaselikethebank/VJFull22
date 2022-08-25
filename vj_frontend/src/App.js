@@ -14,11 +14,12 @@ function App() {
         {/* <ButtonAppBar/> */}
         <ButtonAppBarTwo />
         <div className="body" style={null}>
-          <Nigol />
+        
 
           <Home />
           <Releases />
           <About />
+          <Nigol />
         </div>
       </Box>
     </div>

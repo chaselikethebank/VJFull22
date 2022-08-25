@@ -3,21 +3,21 @@ import { Box } from "@mui/system";
 import Release from "./Release";
 
 function Releases() {
-  const API = "http://localhost:3000/releases";
-  const [links, setLinks] = useState([]);
+  const API = "http://localhost:3000/artists";
+  const [releases, setReleases] = useState([]);
 
   function getLinks() {
     fetch(API)
       .then((rest) => rest.json())
-      .then((data) => setLinks(data));
+      .then((data) => setReleases(data));
   }
   useEffect(getLinks, []);
 
-  // console.log(links);
+  console.log(releases.cat);
 
   // console.log(releases)
-  const renderLinks = links.map((link) => (
-    <Release key={link.id} link={link} releases={links}/>
+  const renderLinks = releases.map((release) => (
+    <Release key={release.id} release={release}/>
   ));
 
   return (

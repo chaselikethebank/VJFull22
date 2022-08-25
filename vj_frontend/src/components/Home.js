@@ -1,7 +1,7 @@
 import React from "react";
-import logo from './VJParrontexture.png'
+// import logo from './VJParrontexture.png'
 import { Box } from "@mui/system";
-// import logo from "./shortEditsFromHandyCamVJ.mp4";
+import logo from "./shortEditsFromHandyCamVJ.mp4";
 
 function Home() {
   return (

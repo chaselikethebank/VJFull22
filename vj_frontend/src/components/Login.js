@@ -10,9 +10,6 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 
 function Login() {
-  const [formArtist, setFormArtist] = useState({
-    name: "",
-  });
   const ArtistAPI = "http://localhost:3000/artists";
   const [artist, setArtist] = useState([]);
 
@@ -22,86 +19,98 @@ function Login() {
       .then((data) => setArtist(data));
   }
   useEffect(getArtist, []);
-  console.log(artist)
+  console.log(artist);
 
-  
+  const [formArtist, setFormArtist] = useState({
+    name: "",
+    cat: "",
+    title: "",
+    link: "",
+  });
+
   const handleArtist = (e) => {
-    const { name, value } = e.target
-    setFormArtist({...formArtist, [name]: value})
+    const { name, value } = e.target;
+    setFormArtist({ ...formArtist, [name]: value });
+  };
+  console.log(formArtist);
+
+  function onArtist(e) {
+    // setFormArtist({name: "", cat: "", title: "", link: ""})
+    fetch(
+      "http://localhost:3000/artists",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formArtist }),
+      },
+      console.log(formArtist)
+    ).then((res) => {
+      if (res.ok) {
+        res.json().then(console.log("full create circle"));
+      } else {
+        //Display errors
+        res
+          .json()
+          .then((data) =>
+            setErrors(Object.entries(data.errors).map((e) => `${e[0]} ${e[1]}`))
+          );
+      }
+    });
   }
-  console.log(formArtist)
 
-  function onArtist(e){ 
-  fetch('http://localhost:3000/artists',{
-    method:'POST',
-    headers: {'Content-Type': 'application/json'}, 
-    body:JSON.stringify({...formArtist, ongoing:true})
-  })
-  .then(res => {
-    if(res.ok){
-      res.json().then(console.log("full create circle"))
-    } else {
-      //Display errors
-      res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-    }
-  })
-}
+  function deleteArtist(e) {
+    const found = artist.find((element) => {
+      return element.cat === formArtist.cat;
+    });
+    console.log(found.id);
 
-
-function deleteArtist(e){ 
-  const found = artist.find(element => {
-    return element.name === formArtist.name
+    fetch(`http://localhost:3000/artists/${found.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    // .then(res => {
+    //   if(res.ok){
+    //     deleteArtist(id)
+    //     artist.push('/')
+    //   } else {
+    //     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+    //   }
+    // })
   }
-  )
 
-  fetch(`/artsts/${null}`,{
-    method:'DELETE',
-    headers: {'Content-Type': 'application/json'}
-  })
-  // .then(res => {
-  //   if(res.ok){
-  //     deleteProduction(id)
-  //     history.push('/')
-  //   } else {
-  //     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-  //   }
-  // })
-}
-
-//find thin the formArtist by name that holds the id in a variable called params.id
-
+  //find thin the formArtist by name that holds the id in a variable called params.id
 
   const [formCreate, setFormCreate] = useState({
     artist: "",
     cat: "",
     link: "",
   });
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
   const handleCreate = (e) => {
-    const { name, value } = e.target
-    setFormCreate({...formCreate, [name]: value})
-  }
+    const { name, value } = e.target;
+    setFormCreate({ ...formCreate, [name]: value });
+  };
   // console.log(formCreate)
 
-  function onCreate(e){ 
-  fetch('http://localhost:3000/releases',{
-    method:'POST',
-    headers: {'Content-Type': 'application/json'}, 
-    body:JSON.stringify({...formCreate, ongoing:true})
-  })
-  .then(res => {
-    if(res.ok){
-      res.json().then(console.log("full circle"))
-    } else {
-      //Display errors
-      res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-    }
-  })
-}
-
-
-
+  function onCreate(e) {
+    fetch("http://localhost:3000/releases", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...formCreate }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(console.log("full circle"));
+      } else {
+        //Display errors
+        res
+          .json()
+          .then((data) =>
+            setErrors(Object.entries(data.errors).map((e) => `${e[0]} ${e[1]}`))
+          );
+      }
+    });
+  }
 
   return (
     <div>
@@ -126,7 +135,8 @@ function deleteArtist(e){
             Edit Artist
           </Typography>
           <TextField
-            value={formArtist.artist_name} onChange={handleArtist} 
+            value={formArtist.name}
+            onChange={handleArtist}
             name="name"
             type="text"
             placeholder=""
@@ -134,8 +144,39 @@ function deleteArtist(e){
             label="Artist"
             sx={{ mb: 2 }}
           />
+          <TextField
+            value={formArtist.cat_num}
+            onChange={handleArtist}
+            name="cat"
+            type="text"
+            placeholder=""
+            // pass down to FormLabel as children
+            label="Catalog #"
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            value={formArtist.title}
+            onChange={handleArtist}
+            name="title"
+            type="text"
+            placeholder=""
+            // pass down to FormLabel as children
+            label="Release title"
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            value={formArtist.link}
+            onChange={handleArtist}
+            name="link"
+            type="text"
+            placeholder=""
+            // pass down to FormLabel as children
+            label="Link"
+            sx={{ mb: 2 }}
+          />
           <div>
-          <Button onClick={onArtist}
+            <Button
+              onClick={onArtist}
               sx={{
                 mt: 1,
                 mb: 1,
@@ -144,7 +185,8 @@ function deleteArtist(e){
             >
               Create
             </Button>
-            <Button onClick={deleteArtist}
+            <Button
+              onClick={deleteArtist}
               sx={{
                 mt: 1,
                 mb: 1,
@@ -153,9 +195,9 @@ function deleteArtist(e){
             >
               Delete
             </Button>
-            </div>
-            </Sheet>
-            <Sheet
+          </div>
+        </Sheet>
+        <Sheet
           sx={{
             maxWidth: 400,
             mx: "auto", // margin left & right
@@ -175,7 +217,8 @@ function deleteArtist(e){
             Create a release
           </Typography>
           <TextField
-            value={formCreate.artist} onChange={handleCreate} 
+            value={formCreate.artist}
+            onChange={handleCreate}
             name="artist"
             type="text"
             placeholder=""
@@ -184,25 +227,38 @@ function deleteArtist(e){
             sx={{ mb: 2 }}
           />
           <TextField
-          value={formCreate.cat} onChange={handleCreate} 
+            value={formCreate.cat}
+            onChange={handleCreate}
             name="cat"
             type="text"
             placeholder=""
             label="Catalog #"
           />
-          <TextField value={formCreate.link} onChange={handleCreate} name="link" type="text" placeholder="" label="Link" />
-            <Button onClick={onCreate}
-              sx={{
-                mt: 1,
-                mb: 1,
-                mr: 4,
-              }}
-            >
-              Create
-            </Button>
-            </Sheet>
-            {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
-            <Sheet
+          <TextField
+            value={formCreate.link}
+            onChange={handleCreate}
+            name="link"
+            type="text"
+            placeholder=""
+            label="Link"
+          />
+          <Button
+            onClick={onCreate}
+            sx={{
+              mt: 1,
+              mb: 1,
+              mr: 4,
+            }}
+          >
+            Create
+          </Button>
+        </Sheet>
+        {errors
+          ? errors.map((e) => (
+              <h2 style={{ color: "red" }}>{e.toUpperCase()}</h2>
+            ))
+          : null}
+        <Sheet
           sx={{
             maxWidth: 400,
             mx: "auto", // margin left & right
@@ -218,7 +274,7 @@ function deleteArtist(e){
           }}
           variant="outlined"
         >
-            <Typography variant="h2" sx={{ color: "black" }}>
+          <Typography variant="h2" sx={{ color: "black" }}>
             Edit a release
           </Typography>
           <TextField
@@ -237,16 +293,17 @@ function deleteArtist(e){
             label="Catalog #"
           />
           <TextField name="link" type="link" placeholder="" label="Link" />
-            <Button
-              sx={{
-                mt: 1,
-                mb: 1,
-                mr: 4,
-              }}
-            >
-              Edit
-            </Button></Sheet>
-            <Sheet
+          <Button
+            sx={{
+              mt: 1,
+              mb: 1,
+              mr: 4,
+            }}
+          >
+            Edit
+          </Button>
+        </Sheet>
+        <Sheet
           sx={{
             maxWidth: 400,
             mx: "auto", // margin left & right
@@ -262,7 +319,7 @@ function deleteArtist(e){
           }}
           variant="outlined"
         >
-            <Typography variant="h2" sx={{ color: "black" }}>
+          <Typography variant="h2" sx={{ color: "black" }}>
             Delete a release
           </Typography>
           <TextField
@@ -272,15 +329,14 @@ function deleteArtist(e){
             label="Catalog #"
           />
           <Button
-              sx={{
-                mt: 1,
-                mb: 1,
-                mr: 4,
-              }}
-            >
-              Delete
-            </Button>
-           
+            sx={{
+              mt: 1,
+              mb: 1,
+              mr: 4,
+            }}
+          >
+            Delete
+          </Button>
         </Sheet>
       </CssVarsProvider>
 
@@ -332,8 +388,9 @@ function deleteArtist(e){
             }}
           >
             Sign up
-          </Button></Sheet>
-          <Sheet
+          </Button>
+        </Sheet>
+        <Sheet
           sx={{
             maxWidth: 400,
             mx: "auto", // margin left & right
@@ -388,4 +445,3 @@ function deleteArtist(e){
 }
 
 export default Login;
-
