@@ -3,7 +3,7 @@ import ButtonAppBar from './components/OldNav'
 import ButtonAppBarTwo from './components/NavAgain'
 import Home from './components/Home';
 import About from './components/About';
-import Login from './components/Login'
+import Nigol from './components/Login'
 import Releases from './components/Releases'
 import Box from '@mui/material/Box';
 
@@ -14,11 +14,11 @@ function App() {
       {/* <ButtonAppBar/> */}
       <ButtonAppBarTwo/>
       <div className="body" style={null} >
-        <Releases />
+      <Nigol />
+
       <Home />
-      
+      <Releases />
       <About />
-      <Login />
       
       </div>
       </Box>

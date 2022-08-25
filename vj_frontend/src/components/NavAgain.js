@@ -31,7 +31,7 @@ export default function ButtonAppBarTwo() {
           <a target="shop" href="https://veryjazzed.bandcamp.com/"> Shop </a> 
           <Link to={`/Releases`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Releases </Link>
           <Link to={`/About`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> About </Link>
-          <Link to={`/Login`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Login</Link>
+          <Link to={`/Nigol`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Login</Link>
           </Typography>
         </Toolbar>
       </AppBar>
