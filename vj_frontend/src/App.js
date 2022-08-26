@@ -8,20 +8,29 @@ import Box from "@mui/material/Box";
 import Build from './components/Build'
 import { Routes, Route } from 'react-router-dom';
 import Login from "./components/Login";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
 function App() {
-const [currentUser, setCurrentUser] = useState(false)
+  const [user, setUser] = useState(null);
 
-const updateUser = (user => setCurrentUser(user))
+  // useEffect(() => {
+  //   // auto-login
+  //   fetch("/me").then((r) => {
+  //     if (r.ok) {
+  //       r.json().then((user) => setUser(user));
+  //     }
+  //   });
+  // }, []);
+
+  // if (!user) return <Login onLogin={setUser} />
 
   return (
     <div className="App">
       <Box m={10} pt={3}>
         {/* <ButtonAppBar/> */}
-        <ButtonAppBarTwo />
+        <ButtonAppBarTwo user={user} setUser={setUser}/>
         <div className="body" style={null}>
         <Routes>
           <Route exact path="/" element={ <Home />}>
@@ -29,9 +38,9 @@ const updateUser = (user => setCurrentUser(user))
           
             <Route exact path="/Releases" element={ <Releases />}>
             </Route>
-            <Route exact path="/Nigol" element={ <Login updateUser={updateUser}/>}>
+            <Route exact path="/Nigol" element={ <Login onLogin={setUser}/>}>
             </Route>
-            <Route exact path="/Build" element={ <Build updateUser={updateUser}/>}>
+            <Route exact path="/Build" element={ <Build onLogin={setUser}/>}>
             </Route>
 
           </Routes>

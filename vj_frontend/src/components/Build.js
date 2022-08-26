@@ -13,6 +13,8 @@ function Build() {
   const ArtistAPI = "http://localhost:3000/artists";
   const [artist, setArtist] = useState([]);
 
+  
+
   function getArtist() {
     fetch(ArtistAPI)
       .then((rest) => rest.json())

@@ -8,51 +8,42 @@ import Link from "@mui/joy/Link";
 import { sizing } from "@mui/system";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
-import { useHistory } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router";
 
-function Login() {
- 
-
-  
-  //find thin the formArtist by name that holds the id in a variable called params.id
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  });
+function Login({ onLogin }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errors, setErrors] = useState([]);
-  const {email, password} = formData
-  const history = useHistory()
+  const [isLoading, setIsLoading] = useState(false);
 
-  function onSubmit(e) {
-    e.preventDefault()
-    const user = {email,
-    password
+  function handleSubmit(e) {
+    e.preventDefault();
+    setErrors([]);
+    setIsLoading(true);
+    fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        password_confirmation: passwordConfirmation
+      }),
+    }).then((r) => {
+      setIsLoading(false); 
+      if (r.ok) {
+        r.json().then((user) => onLogin(user));
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
   }
-
-  fetch('/users',{
-    method:'POST',
-    headers:{'Content-Type': 'application/json'},
-    body:JSON.stringify(user)
-  })
-  .then(res=> {
-    if(res.ok){
-      res.json().then(user=> {
-        history.push(`/users/${user.id}`)
-      })
-    }else {
-      res.json().then(json => setErrors(Object.entries(json.errors    )))
-    }
-  })
-  }
-  
-
-
 
   return (
     <div>
-      
-
       <CssVarsProvider>
         <Sheet
           sx={{
@@ -79,28 +70,42 @@ function Login() {
 
             <TextField
               // html input attribute
-              name="email"
-              type="email"
+              name="username"
+              type="text"
               placeholder=""
-              // pass down to FormLabel as children
-              label="Email"
+              value={username}
+              label="Username"
               sx={{ mb: 2 }}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               name="password"
               type="password"
               placeholder=""
               label="Password"
+              value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+            />
+            <TextField
+              name="password"
+              type="password"
+              placeholder=""
+              label="Password"
+              value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          autoComplete="current-password"
             />
           </div>
 
           <Button
+            onClick={handleSubmit}
             sx={{
               mt: 1,
               mb: 3,
             }}
-          >
-            Sign up
+            
+          >{isLoading ? "Loading..." : "Sign Up"}
           </Button>
         </Sheet>
         <Sheet
