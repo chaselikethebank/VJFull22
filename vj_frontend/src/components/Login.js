@@ -8,6 +8,7 @@ import Link from "@mui/joy/Link";
 import { sizing } from "@mui/system";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
+import { useHistory } from 'react';
 
 function Login() {
  
@@ -15,12 +16,37 @@ function Login() {
   
   //find thin the formArtist by name that holds the id in a variable called params.id
 
-  const [formCreate, setFormCreate] = useState({
-    artist: "",
-    cat: "",
-    link: "",
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
   });
   const [errors, setErrors] = useState([]);
+  const {email, password} = formData
+  const history = useHistory()
+
+  function onSubmit(e) {
+    e.preventDefault()
+    const user = {email,
+    password
+  }
+
+  fetch('/users',{
+    method:'POST',
+    headers:{'Content-Type': 'application/json'},
+    body:JSON.stringify(user)
+  })
+  .then(res=> {
+    if(res.ok){
+      res.json().then(user=> {
+        history.push(`/users/${user.id}`)
+      })
+    }else {
+      res.json().then(json => setErrors(Object.entries(json.errors    )))
+    }
+  })
+  }
+  
+
 
 
   return (

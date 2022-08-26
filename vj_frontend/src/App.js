@@ -8,11 +8,15 @@ import Box from "@mui/material/Box";
 import Build from './components/Build'
 import { Routes, Route } from 'react-router-dom';
 import Login from "./components/Login";
-
+import { useState } from 'react';
 
 
 
 function App() {
+const [currentUser, setCurrentUser] = useState(false)
+
+const updateUser = (user => setCurrentUser(user))
+
   return (
     <div className="App">
       <Box m={10} pt={3}>
@@ -25,9 +29,9 @@ function App() {
           
             <Route exact path="/Releases" element={ <Releases />}>
             </Route>
-            <Route exact path="/Nigol" element={ <Login />}>
+            <Route exact path="/Nigol" element={ <Login updateUser={updateUser}/>}>
             </Route>
-            <Route exact path="/Build" element={ <Build />}>
+            <Route exact path="/Build" element={ <Build updateUser={updateUser}/>}>
             </Route>
 
           </Routes>
