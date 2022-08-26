@@ -27,10 +27,10 @@ export default function ButtonAppBarTwo() {
             fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}>
           <Link 
         //   style={{ textdecoration: 'none'}} 
-          m={2} pt={3} to={`/home`}  variant="body1: 'p'" color="black" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> HQ </Link>
+          m={2} pt={3} to={`/`}  variant="body1: 'p'" color="black" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> HQ </Link>
           <a target="shop" href="https://veryjazzed.bandcamp.com/"> Shop </a> 
           <Link to={`/Releases`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Releases </Link>
-          <Link to={`/About`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> About </Link>
+          <Link to={`/Build`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Build </Link>
           <Link to={`/Nigol`} underline="none" variant="h6" color="inherit" sx={{fontFamily: 'Arial', textTransform: 'uppercase', fontWeight: 'bold'  }}> Login</Link>
           </Typography>
         </Toolbar>
