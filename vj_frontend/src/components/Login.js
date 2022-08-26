@@ -17,6 +17,9 @@ function Login({ onLogin }) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  console.log({username}, {password})
+
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -92,7 +95,7 @@ function Login({ onLogin }) {
               name="username"
               type="text"
               placeholder=""
-              value={username}
+              // value={username}
               label="Username"
               sx={{ mb: 2 }}
               onChange={(e) => setUsername(e.target.value)}
@@ -102,7 +105,7 @@ function Login({ onLogin }) {
               type="text"
               placeholder=""
               label="Password"
-              value={password}
+              // value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
             />
@@ -154,7 +157,7 @@ function Login({ onLogin }) {
               name="email"
               type="username"
               placeholder=""
-              value={username}
+              // value={username}
               onChange={(e) => setUsername(e.target.value)}
               label="Username"
               sx={{ mb: 2 }}
@@ -165,7 +168,7 @@ function Login({ onLogin }) {
               placeholder=""
               label="Password"
               autoComplete="current-password"
-              value={password}
+              // value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
