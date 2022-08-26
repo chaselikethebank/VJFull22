@@ -30,10 +30,29 @@ function Login({ onLogin }) {
       body: JSON.stringify({
         username,
         password,
-        password_confirmation: passwordConfirmation
+        password_confirmation: passwordConfirmation,
       }),
     }).then((r) => {
-      setIsLoading(false); 
+      setIsLoading(false);
+      if (r.ok) {
+        r.json().then((username) => onLogin(username));
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }).then((r) => {
+      setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => onLogin(user));
       } else {
@@ -80,21 +99,21 @@ function Login({ onLogin }) {
             />
             <TextField
               name="password"
-              type="password"
+              type="text"
               placeholder=""
               label="Password"
               value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
             />
             <TextField
               name="password"
-              type="password"
+              type="text"
               placeholder=""
               label="Password"
               value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-          autoComplete="current-password"
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              autoComplete="current-password"
             />
           </div>
 
@@ -104,8 +123,8 @@ function Login({ onLogin }) {
               mt: 1,
               mb: 3,
             }}
-            
-          >{isLoading ? "Loading..." : "Sign Up"}
+          >
+            {isLoading ? "Loading..." : "Sign Up"}
           </Button>
         </Sheet>
         <Sheet
@@ -132,23 +151,27 @@ function Login({ onLogin }) {
             </div>
 
             <TextField
-              // html input attribute
               name="email"
-              type="email"
+              type="username"
               placeholder=""
-              // pass down to FormLabel as children
-              label="Email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              label="Username"
               sx={{ mb: 2 }}
             />
             <TextField
               name="password"
-              type="password"
+              type="text"
               placeholder=""
               label="Password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <Button
+            onClick={handleLogin}
             sx={{
               mt: 1,
               mb: 3,
