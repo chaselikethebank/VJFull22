@@ -13,12 +13,15 @@ function Releases() {
   }
   useEffect(getLinks, []);
 
-  console.log(releases.cat);
+  // console.log(releases.cat);
 
   // console.log(releases)
-  const renderLinks = releases.map((release) => (
+  const renderLinks = releases.sort( (a,b) => a.id > b.id ? 1 : -1 )
+    .map
+    ((release) => (
     <Release key={release.id} release={release}/>
-  ));
+  ))
+  console.log(renderLinks)
 
   return (
     <div className="App">

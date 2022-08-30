@@ -87,7 +87,7 @@ export default function ButtonAppBarTwo({ setUser }) {
               {" "}
               Releases{" "}
             </Link>
-            <Link
+            {/* <Link
               to={`/Build`}
               underline="none"
               variant="h6"
@@ -100,8 +100,8 @@ export default function ButtonAppBarTwo({ setUser }) {
             >
               {" "}
               Build{" "}
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               to={`/Nigol`}
               underline="none"
               variant="h6"
@@ -114,7 +114,7 @@ export default function ButtonAppBarTwo({ setUser }) {
             >
               {" "}
               Login
-            </Link>
+            </Link> */}
             <Button variant="outline" onClick={handleLogoutClick}></Button>
           </Typography>
         </Toolbar>

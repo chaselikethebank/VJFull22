@@ -21,24 +21,26 @@ import { sizing } from "@mui/system";
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    // auto-login
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   // auto-login
+  //   fetch("/me").then((r) => {
+  //     if (r.ok) {
+  //       r.json().then((user) => setUser(user));
+  //     }
+  //   });
+  // }, []);
 
-  if (!user) return <Login onLogin={setUser} />
+  // if (!user) return <Login onLogin={setUser} />
 
   return (
     <div className="App">
       <Box m={10} pt={3}>
         {/* <ButtonAppBar/> */}
-        <ButtonAppBarTwo user={user} setUser={setUser}/>
+        <ButtonAppBarTwo 
+        // user={user} setUser={setUser}
+        />
         <div className="body" style={null}>
         <Routes>
           <Route exact path="/" element={ <Home />}>
@@ -46,9 +48,13 @@ function App() {
           
             <Route exact path="/Releases" element={ <Releases />}>
             </Route>
-            <Route exact path="/Nigol" element={ <Login onLogin={setUser}/>}>
+            <Route exact path="/Nigol" element={ <Login 
+            // onLogin={setUser}
+            />}>
             </Route>
-            <Route exact path="/Build" element={ <Build onLogin={setUser}/>}>
+            <Route exact path="/Build" element={ <Build 
+            // onLogin={setUser}
+            />}>
             </Route>
 
           </Routes>

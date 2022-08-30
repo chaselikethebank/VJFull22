@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 function Build() {
   const ArtistAPI = "http://localhost:3000/artists";
   const [artist, setArtist] = useState([]);
+  
 
   
 
